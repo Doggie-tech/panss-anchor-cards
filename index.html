@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PANSS 评分锚点速查卡</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f3ef;
+      --panel: rgba(255, 255, 255, 0.9);
+      --ink: #1d1d1f;
+      --muted: #6e6e73;
+      --line: rgba(60, 60, 67, 0.16);
+      --brand: #315f72;
+      --brand-dark: #244a59;
+      --soft: rgba(49, 95, 114, 0.12);
+      --warn: #775b16;
+      --warn-bg: #fff4d7;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(133, 156, 146, 0.22), transparent 35%),
+        radial-gradient(circle at 82% 10%, rgba(82, 103, 126, 0.14), transparent 30%),
+        linear-gradient(180deg, #fbfaf7 0%, var(--bg) 45%, #ebe8e1 100%);
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior-x: contain;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: max(16px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right))
+        max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    }
+
+    header {
+      display: none;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 10px 30px rgba(52, 64, 66, 0.1);
+      backdrop-filter: blur(22px) saturate(1.6);
+      -webkit-backdrop-filter: blur(22px) saturate(1.6);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .progress-pill {
+      flex: 0 0 auto;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--brand-dark);
+      font-size: clamp(18px, 2.4vw, 24px);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .notice {
+      margin: 0;
+      padding: 12px 14px;
+      border: 1px solid #f0d99d;
+      border-radius: 8px;
+      background: var(--warn-bg);
+      color: var(--warn);
+      font-size: clamp(16px, 2vw, 19px);
+    }
+
+    main {
+      width: min(980px, 100%);
+      margin: 0 auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card {
+      flex: 1;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      touch-action: pan-y;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .card.is-changing {
+      transform: scale(0.985);
+      opacity: 0.76;
+    }
+
+    .card-head {
+      padding: clamp(18px, 2.6vw, 28px);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      gap: 8px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.66));
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .item-title {
+      margin: 0;
+      font-size: clamp(32px, 4.4vw, 50px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .dimension {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--brand-dark);
+      font-size: clamp(17px, 2.2vw, 22px);
+      font-weight: 800;
+    }
+
+    .focus-line {
+      margin: 0;
+      max-width: 58em;
+      color: var(--muted);
+      font-size: clamp(19px, 2.45vw, 25px);
+      line-height: 1.42;
+    }
+
+    .card-body {
+      padding: clamp(20px, 3.2vw, 32px);
+      display: grid;
+      gap: 22px;
+    }
+
+    section {
+      display: grid;
+      gap: 9px;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--brand-dark);
+      font-size: clamp(21px, 2.8vw, 28px);
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(20px, 2.7vw, 27px);
+    }
+
+    .scale-section {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.64);
+    }
+
+    .anchors {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 9px;
+      list-style: none;
+    }
+
+    .anchors li {
+      min-height: 0;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      align-items: center;
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .score {
+      height: 100%;
+      min-height: 92px;
+      padding: 12px 10px;
+      color: var(--brand-dark);
+      font-size: clamp(19px, 2.8vw, 26px);
+      font-weight: 900;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.72);
+      border-right: 1px solid var(--line);
+    }
+
+    .bar-panel {
+      min-width: 0;
+    }
+
+    .bar-track {
+      min-height: 92px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: rgba(60, 60, 67, 0.06);
+    }
+
+    .bar-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      height: 100%;
+      background: linear-gradient(90deg, #d8e0d7 0%, #9cb7ad 28%, #63889a 58%, #9a756e 82%, #8b3f46 100%);
+      opacity: 0.74;
+    }
+
+    .anchor-text {
+      position: relative;
+      z-index: 1;
+      padding: 12px 14px;
+      color: var(--ink);
+      display: grid;
+      gap: 3px;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+    }
+
+    .anchor-main {
+      font-size: clamp(18px, 2.4vw, 24px);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .anchor-guide {
+      color: rgba(29, 29, 31, 0.76);
+      font-size: clamp(15px, 2vw, 20px);
+      line-height: 1.28;
+    }
+
+    .anchor-example {
+      color: rgba(36, 74, 89, 0.9);
+      font-size: clamp(14px, 1.8vw, 18px);
+      line-height: 1.24;
+    }
+
+    .quick-list {
+      margin: 0;
+      padding-left: 1.15em;
+      color: var(--ink);
+      font-size: clamp(20px, 2.7vw, 27px);
+    }
+
+    .quick-list li + li {
+      margin-top: 4px;
+    }
+
+    .q-label {
+      color: var(--brand-dark);
+      font-weight: 900;
+    }
+
+    .swipe-edge {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 34px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 160ms ease;
+      z-index: 20;
+    }
+
+    .swipe-edge.left {
+      left: 0;
+      background: linear-gradient(90deg, rgba(49, 95, 114, 0.22), transparent);
+    }
+
+    .swipe-edge.right {
+      right: 0;
+      background: linear-gradient(270deg, rgba(49, 95, 114, 0.22), transparent);
+    }
+
+    .swipe-edge.show {
+      opacity: 1;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    @media (max-width: 760px) {
+      body {
+        font-size: 18px;
+      }
+
+      .topline {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .progress-pill {
+        width: 100%;
+        text-align: center;
+      }
+
+      .anchors li {
+        grid-template-columns: 82px 1fr;
+      }
+    }
+
+    @media (orientation: landscape) and (min-width: 900px) {
+      .card-body {
+        grid-template-columns: 1fr 1.35fr;
+      }
+
+      .span-all {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .notice {
+        display: none;
+      }
+
+      .app {
+        padding: 0;
+      }
+
+      .card {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="topline">
+        <h1>PANSS 评分锚点速查卡</h1>
+        <div class="progress-pill" id="progress">P1 妄想</div>
+      </div>
+    </header>
+
+    <main>
+      <article class="card" aria-live="polite">
+        <div class="card-head">
+          <div class="title-row">
+            <h2 class="item-title" id="itemTitle">P1 妄想</h2>
+            <div class="dimension" id="dimension">阳性量表</div>
+          </div>
+          <p class="focus-line" id="focus"></p>
+        </div>
+        <div class="card-body">
+          <section>
+            <h2>追问路径</h2>
+            <ul class="quick-list" id="questions"></ul>
+          </section>
+
+          <section class="span-all scale-section">
+            <h2>1-7 分现场定级</h2>
+            <ol class="anchors" id="anchors"></ol>
+          </section>
+
+          <section class="span-all">
+            <h2>易混淆点</h2>
+            <p class="muted" id="confusions"></p>
+          </section>
+        </div>
+      </article>
+
+    </main>
+  </div>
+  <div class="swipe-edge left" id="swipeLeft"></div>
+  <div class="swipe-edge right" id="swipeRight"></div>
+
+  <script>
+    const levelNames = ["无", "可疑", "轻度", "中度", "较重", "重度", "极重"];
+    const levelGuides = [
+      "未见该表现；访谈、观察和补充信息均不支持。",
+      "只有线索或偶发；证据不足，尚不能确定为明确症状。",
+      "明确但轻；频率低、可被引导，功能影响很小。",
+      "中度明确；访谈中能看到，或已影响日常/关系/判断。",
+      "较重；频繁、坚定或难转移，需要反复澄清、安抚或管理。",
+      "重度；持续存在，明显支配行为或功能，常规引导效果差。",
+      "极重；几乎完全被该症状控制，或伴迫切安全/照护风险。"
+    ];
+    const domainLevelGuides = {
+      belief: [
+        "无此信念；能按现实解释事件。",
+        "只是怀疑或一闪而过；能接受其他解释。",
+        "明确但松动；追问后可部分修正。",
+        "较明确且反复出现；开始影响判断或互动。",
+        "确信度高；行为已围绕该信念调整。",
+        "持续坚信；明显支配日常决定或关系。",
+        "完全被信念控制，或因此出现迫切风险。"
+      ],
+      speech: [
+        "思路清楚，表达连贯。",
+        "偶尔含糊；不影响理解。",
+        "轻度跑题或贫乏；提示后能回到主题。",
+        "交流明显费力；需要反复澄清才能评分。",
+        "频繁中断、松散或少语；重要信息难取得。",
+        "多数内容难跟随；访谈效率很低。",
+        "几乎无法完成有效访谈。"
+      ],
+      behavior: [
+        "行为平稳，可合作。",
+        "轻微急躁或异常；无需干预。",
+        "明确可见但可被语言引导。",
+        "影响访谈秩序；需要主动引导或限界。",
+        "反复出现；需要持续管理或降温。",
+        "强烈且难控制；照护或安全压力明显。",
+        "失控、攻击、自伤或立即安全风险。"
+      ],
+      negative: [
+        "情感、交流和主动性接近既往。",
+        "略减少；需仔细观察才发现。",
+        "轻度减少；访谈中可见但仍能互动。",
+        "持续减少；明显影响交流或日常参与。",
+        "多数情境受影响；需要外界推动。",
+        "严重缺失；功能明显依赖他人。",
+        "几乎完全缺失或退缩，基本不能参与。"
+      ],
+      mood: [
+        "无明显痛苦或担忧。",
+        "偶有轻微情绪；可自行转移。",
+        "明确但可控；功能影响轻。",
+        "持续影响访谈、睡眠、活动或关系。",
+        "痛苦明显；反复需要安抚或确认。",
+        "严重且难缓解；功能显著下降。",
+        "极端痛苦，或伴迫切自伤/他伤风险。"
+      ],
+      cognition: [
+        "定向、注意、判断或抽象能力良好。",
+        "偶有犹豫或小错；不影响评估。",
+        "轻度困难；提示后能完成。",
+        "访谈中反复需要提示或具体化。",
+        "简单任务也常出错；日常判断受影响。",
+        "严重困难；配合评估明显受限。",
+        "基本无法完成任务，或严重混乱需照护。"
+      ],
+      function: [
+        "启动、坚持和社交参与基本正常。",
+        "轻微减少；仍可自行完成。",
+        "明确减少；偶需提醒或鼓励。",
+        "日常活动或社交明显受限。",
+        "多数任务需督促或陪同。",
+        "严重受限；难以维持基本安排。",
+        "几乎完全不能启动或参与日常。"
+      ]
+    };
+    const domainExamples = {
+      belief: [
+        "例：追问后无被害、特殊身份、被控制等固定信念。",
+        "例：说“可能有人针对我”，但能承认也许是误会。",
+        "例：偶尔认为同事针对自己，解释后能部分接受。",
+        "例：反复坚称被监视，谈话需要围绕证据澄清。",
+        "例：因确信被害而回避出门、报警或与人冲突。",
+        "例：多数决定受信念驱动，家属难以劝回现实。",
+        "例：按妄想行动，出现攻击、自伤、逃跑或严重照护风险。"
+      ],
+      speech: [
+        "例：能按时间、人物、事件讲清楚。",
+        "例：偶尔答偏，但提醒后马上修正。",
+        "例：回答短、跑题或具体化，不过核心信息能取得。",
+        "例：多次需要“这和刚才有什么关系？”来拉回。",
+        "例：谈话反复断裂，病史或症状信息取得困难。",
+        "例：大段内容无法理解，只能获得零散片段。",
+        "例：问答基本不能成立，无法可靠完成评估。"
+      ],
+      behavior: [
+        "例：访谈中坐得住、能等待、能按要求配合。",
+        "例：有点急、烦或怪异，但不影响流程。",
+        "例：明显坐立不安、易怒或冲动，提醒后能停。",
+        "例：打断、争辩、拒答或激动，需设限才能继续。",
+        "例：多次升温、威胁、摔物倾向或反复违反限制。",
+        "例：很难降温，需要人员持续陪同或环境管理。",
+        "例：已经失控或即将攻击、自伤、冲出现场。"
+      ],
+      negative: [
+        "例：表情、语调、主动交流和社交接近既往。",
+        "例：略显平淡或被动，但仍自然回应。",
+        "例：表情少、回答短，提示后还能展开。",
+        "例：持续少语、少表情或少主动，访谈明显受影响。",
+        "例：多数时候需要别人推动，社交和日常参与下降。",
+        "例：几乎不主动说话/活动，功能明显依赖照护。",
+        "例：基本无情感回应、无主动活动或完全退缩。"
+      ],
+      mood: [
+        "例：无持续担忧、低落、内疚或躯体焦虑。",
+        "例：偶尔紧张/低落，话题转开后可缓解。",
+        "例：明确痛苦，但睡眠、活动或配合影响较小。",
+        "例：症状持续占用注意，影响访谈或一天安排。",
+        "例：反复求证、哭泣、自责或担心，需要安抚。",
+        "例：明显无望、惊恐或躯体化，功能显著下降。",
+        "例：伴自杀意念、严重惊恐失控或迫切安全风险。"
+      ],
+      cognition: [
+        "例：时间地点人物清楚，能完成简单注意/抽象任务。",
+        "例：小错或慢一点，但自我修正快。",
+        "例：需提示才能完成倒数、概括或解释后果。",
+        "例：反复分心、定向错误或判断偏差影响访谈。",
+        "例：简单任务常失败，日常决定已受影响。",
+        "例：严重混乱或判断差，需要他人持续协助。",
+        "例：不定向、无法配合，或判断问题带来立即风险。"
+      ],
+      function: [
+        "例：能自己起床、洗漱、安排活动和基本社交。",
+        "例：略拖延或减少，但提醒很少。",
+        "例：部分活动要催促，仍能完成关键任务。",
+        "例：工作/学习/家务/社交已有明显下降。",
+        "例：大多数任务要别人安排或陪同。",
+        "例：基本活动难维持，常需要照护者介入。",
+        "例：几乎不启动、不参与，日常功能接近停摆。"
+      ],
+      default: [
+        "例：没有稳定证据支持该表现。",
+        "例：只有线索，需继续观察或向家属核实。",
+        "例：明确存在，但轻、少、可控。",
+        "例：中度存在，已影响访谈或日常。",
+        "例：频繁或难控制，需要反复处理。",
+        "例：严重影响功能或照护安排。",
+        "例：极端严重，或伴立即安全风险。"
+      ]
+    };
+    function getGuideType(item) {
+      if (["P1", "P5", "P6", "G9", "G15"].includes(item.id)) return "belief";
+      if (["P2", "N3", "N6", "N7"].includes(item.id)) return "speech";
+      if (["P4", "P7", "G4", "G5", "G8", "G14", "S1", "S2", "S3"].includes(item.id)) return "behavior";
+      if (["G2", "G3", "G6", "G1"].includes(item.id)) return "mood";
+      if (["N5", "G10", "G11", "G12"].includes(item.id)) return "cognition";
+      if (["N4", "G7", "G13", "G16"].includes(item.id)) return "function";
+      if (item.id.startsWith("N")) return "negative";
+      return "default";
+    }
+
+    const items = [
+      {
+        id: "P1",
+        name: "妄想",
+        dimension: "阳性量表",
+        focus: "固定的错误信念及其确信度、荒谬性、系统化程度，以及对行为和关系的影响。",
+        anchors: ["无妄想", "似有但不确定", "单一轻度观念，可被动摇", "明确妄想，影响谈话", "多项或较坚定，影响行为", "系统化且明显支配行为", "几乎完全被妄想控制"],
+        questions: ["是否有人害你、监视你或传递特殊信息？", "你有多确定？别人怎么解释？", "这些想法让你做了什么改变？"],
+        confusions: "与猜疑、文化信念、强迫观念区分；重点看确信度和现实检验。"
+      },
+      {
+        id: "P2",
+        name: "概念紊乱",
+        dimension: "阳性量表",
+        focus: "思维组织和表达是否连贯，包括跑题、松散、答非所问、语义难以跟随。",
+        anchors: ["清楚连贯", "偶尔含糊", "轻度跑题但能回到主题", "明显松散，需澄清", "频繁不连贯，交流困难", "大段难理解", "几乎无法有效交流"],
+        questions: ["请解释刚才那件事的前因后果。", "这个想法和前面说的有什么关系？", "能不能按时间顺序再说一遍？"],
+        confusions: "不要把教育水平低、语言障碍、紧张或听力问题误作思维紊乱。"
+      },
+      {
+        id: "P3",
+        name: "幻觉行为",
+        dimension: "阳性量表",
+        focus: "对不存在刺激的感知体验及外显反应，如倾听、对话、受命令影响。",
+        anchors: ["无", "偶有疑似体验", "短暂轻度，不太困扰", "明确幻觉，有困扰", "频繁出现，影响活动", "持续明显，行为受影响", "完全受幻觉支配或高风险"],
+        questions: ["是否听到别人听不到的声音？", "声音多久出现一次？说什么？", "它有没有要求你做事？你会照做吗？"],
+        confusions: "与内心想法、回忆、睡前睡后体验、耳鸣区分；关注是否被当作真实外界刺激。"
+      },
+      {
+        id: "P4",
+        name: "兴奋",
+        dimension: "阳性量表",
+        focus: "活动水平、言语增多、冲动、情绪高涨或易激惹导致的可控性下降。",
+        anchors: ["平稳", "轻微活跃", "话多/坐立不安", "明显激动，需引导", "难以安坐或打断频繁", "高度激越，管理困难", "失控或迫切需要保护措施"],
+        questions: ["最近是否精力异常多、停不下来？", "别人是否说你太兴奋或太冲？", "有没有因此争执、花钱、冒险或无法休息？"],
+        confusions: "与焦虑、静坐不能、药物影响、躁狂症状重叠；按当前行为和可控性评分。"
+      },
+      {
+        id: "P5",
+        name: "夸大",
+        dimension: "阳性量表",
+        focus: "自我能力、身份、权力、财富或使命感的异常夸大及确信程度。",
+        anchors: ["无", "自评略高", "夸大但可笑谈", "明确夸大信念", "坚定且影响计划", "明显不现实并驱动行为", "宏大信念完全支配生活"],
+        questions: ["你觉得自己有什么特别身份或能力吗？", "这些能力有什么证据？", "你是否因此做了重大决定？"],
+        confusions: "与自信、文化/宗教角色、躁狂性夸大区分；关键是现实基础和行为后果。"
+      },
+      {
+        id: "P6",
+        name: "猜疑/被害",
+        dimension: "阳性量表",
+        focus: "不信任、警觉、被针对感，以及由此产生的防御或敌对行为。",
+        anchors: ["无", "略警觉", "轻度多疑，可安抚", "明确被害担心", "强烈猜疑，回避或防御", "持续被害确信，显著影响", "严重被害感伴危险行为"],
+        questions: ["你是否觉得有人故意针对你？", "你会采取什么保护自己？", "有没有因此避开人、报警或冲突？"],
+        confusions: "P1 更看固定妄想内容；P6 可包含态度和行为上的猜疑。"
+      },
+      {
+        id: "P7",
+        name: "敌对性",
+        dimension: "阳性量表",
+        focus: "愤怒、怨恨、言语攻击、威胁或攻击行为的程度。",
+        anchors: ["友善合作", "轻微不耐烦", "易怒但可合作", "明显敌意或争辩", "言语攻击/威胁", "强烈敌对，需严密管理", "现实攻击或迫切危险"],
+        questions: ["最近有没有很想骂人、威胁或动手？", "什么情况最容易激怒你？", "别人是否担心你会伤人？"],
+        confusions: "与兴奋、焦虑、被害引发的防御区分；按敌意表达和风险评分。"
+      },
+      {
+        id: "N1",
+        name: "情感迟钝",
+        dimension: "阴性量表",
+        focus: "面部表情、声音语调、手势和情绪反应的减少。",
+        anchors: ["自然丰富", "略少", "表情/语调轻度减少", "明显平淡", "反应范围窄", "大多无表情", "几乎无情感表达"],
+        questions: ["观察访谈中的表情、眼神、语调变化。", "谈到开心或难过的事时反应如何？", "家属是否觉得表情变少？"],
+        confusions: "与抑郁、镇静药、帕金森样副作用、文化表达习惯区分。"
+      },
+      {
+        id: "N2",
+        name: "情绪退缩",
+        dimension: "阴性量表",
+        focus: "对人际互动的情感投入减少，亲密感和回应性下降。",
+        anchors: ["投入自然", "略显疏离", "情感回应偏少", "明显冷淡", "很少主动情感交流", "几乎不与人情感连接", "完全退缩"],
+        questions: ["最近和家人朋友亲近吗？", "别人开心或难过时你有什么感觉？", "你还会主动关心别人吗？"],
+        confusions: "N2 看情感连接；N4 看社交主动性；抑郁和社交焦虑也会减少接触。"
+      },
+      {
+        id: "N3",
+        name: "交流障碍",
+        dimension: "阴性量表",
+        focus: "访谈中的互动流畅度、回应意愿、眼神接触和对话互惠性。",
+        anchors: ["交流顺畅", "略被动", "回应短但可交流", "需要反复推动", "交流贫乏", "很难建立对话", "几乎拒绝或不能交流"],
+        questions: ["观察是否主动回应、追随话题。", "是否需要频繁提示才回答？", "眼神和互动是否自然？"],
+        confusions: "与P2思维紊乱不同；这里重在互动贫乏，不是语言内容混乱。"
+      },
+      {
+        id: "N4",
+        name: "被动/淡漠社交退缩",
+        dimension: "阴性量表",
+        focus: "因动力不足或淡漠导致的社交减少，而非被害、焦虑或环境限制。",
+        anchors: ["社交如常", "略减少", "偶尔回避社交", "明显减少主动来往", "大多独处", "几乎不参与社交", "完全孤立"],
+        questions: ["平时会主动找人聊天或活动吗？", "不社交是因为不想、害怕，还是觉得没必要？", "家属观察到你变孤立了吗？"],
+        confusions: "需区分被害回避、抑郁退缩、社交焦虑和现实缺少机会。"
+      },
+      {
+        id: "N5",
+        name: "抽象思维困难",
+        dimension: "阴性量表",
+        focus: "理解比喻、概括、分类和非字面意义的能力。",
+        anchors: ["抽象良好", "偶尔具体化", "轻度具体", "明显依赖字面", "概括困难", "多数抽象任务失败", "几乎只能具体思维"],
+        questions: ["“不要把鸡蛋放在一个篮子里”是什么意思？", "苹果和香蕉有什么共同点？", "遇到问题能否总结出规律？"],
+        confusions: "受教育水平、智力、语言文化背景影响大；结合个人基线判断。"
+      },
+      {
+        id: "N6",
+        name: "交谈缺乏自发性和流畅性",
+        dimension: "阴性量表",
+        focus: "言语启动少、回答短、信息量少，需要访谈者不断推动。",
+        anchors: ["自发流畅", "略少", "回答偏短", "明显少语", "多为单句回答", "极少自发言语", "几乎无言语"],
+        questions: ["开放问题后是否能自然展开？", "回答是否只有“是/不是”？", "是否需要不断追问才有信息？"],
+        confusions: "与P2内容紊乱不同；也要排除抑郁、紧张、失语或听力问题。"
+      },
+      {
+        id: "N7",
+        name: "刻板思维",
+        dimension: "阴性量表",
+        focus: "思维灵活性下降，反复固定主题、难以转换观点或适应新信息。",
+        anchors: ["灵活", "偶尔固着", "轻度重复", "明显固执或绕圈", "难以转换话题", "强烈固着影响交流", "完全困在固定模式"],
+        questions: ["能否从另一个角度看这件事？", "当证据不同，你会改变看法吗？", "谈话是否反复回到同一主题？"],
+        confusions: "与妄想的确信不同；N7看认知灵活性和重复模式。"
+      },
+      {
+        id: "G1",
+        name: "躯体关注",
+        dimension: "一般精神病理",
+        focus: "对身体症状、疾病或健康风险的担心及占用程度。",
+        anchors: ["无特别担心", "轻微关注", "偶尔担心身体", "反复担心需安抚", "明显占用时间", "强烈担心影响生活", "完全被躯体担忧支配"],
+        questions: ["最近最担心身体哪里？", "检查结果能让你放心多久？", "这些担心影响睡眠或活动吗？"],
+        confusions: "先考虑真实疾病；与躯体妄想、焦虑障碍、药物副作用区分。"
+      },
+      {
+        id: "G2",
+        name: "焦虑",
+        dimension: "一般精神病理",
+        focus: "紧张、担心、恐惧、躯体焦虑和对未来威胁的预期。",
+        anchors: ["不焦虑", "轻微紧张", "可控担心", "明显焦虑", "频繁焦虑影响功能", "严重焦虑难以安抚", "极端焦虑或惊恐失控"],
+        questions: ["最近最担心什么？", "焦虑时身体有什么反应？", "焦虑让你回避了什么？"],
+        confusions: "与激越、静坐不能、被害恐惧区分；焦虑可由精神病性体验继发。"
+      },
+      {
+        id: "G3",
+        name: "罪恶感",
+        dimension: "一般精神病理",
+        focus: "过度自责、内疚、认为自己应受惩罚或造成严重后果。",
+        anchors: ["无", "偶尔自责", "轻度内疚", "明显内疚反复提及", "强烈自责影响情绪", "近妄想性罪责", "罪责信念支配或伴高风险"],
+        questions: ["你是否觉得自己做错了很严重的事？", "这种内疚是否超过事实？", "有没有觉得该受惩罚或不该活？"],
+        confusions: "注意自杀风险；与抑郁性罪责妄想、现实责任区分。"
+      },
+      {
+        id: "G4",
+        name: "紧张",
+        dimension: "一般精神病理",
+        focus: "运动性紧张、僵硬、姿势异常、木僵或紧张症样表现。",
+        anchors: ["无", "轻微绷紧", "偶有僵硬/姿势怪", "明显紧张影响动作", "频繁姿势或运动异常", "严重紧张需协助", "极端木僵或危险状态"],
+        questions: ["观察姿势、动作速度和肌张力。", "是否长时间保持同一姿势？", "动作异常是否由药物或神经系统问题导致？"],
+        confusions: "与锥体外系反应、焦虑肌紧张、神经系统疾病区分。"
+      },
+      {
+        id: "G5",
+        name: "装相和作态",
+        dimension: "一般精神病理",
+        focus: "怪异、不自然、夸张或仪式化的姿势、动作、表情和行为方式。",
+        anchors: ["自然", "略怪异", "偶有不寻常动作", "明显作态", "频繁怪异影响互动", "严重怪异需管理", "极端怪异且功能受损"],
+        questions: ["观察动作、姿势、穿着和表情是否明显不合情境。", "家属是否说行为方式变奇怪？", "这些动作是否有目的或受症状驱动？"],
+        confusions: "与文化习惯、人格风格、抽动、药物副作用和刻板行为区分。"
+      },
+      {
+        id: "G6",
+        name: "抑郁",
+        dimension: "一般精神病理",
+        focus: "低落心境、兴趣下降、无望感、哭泣或悲观想法。",
+        anchors: ["无", "偶尔低落", "轻度低落可转移", "明显抑郁", "持续低落影响功能", "严重无望或自责", "极重抑郁或迫切风险"],
+        questions: ["最近心情最低落到什么程度？", "还会对什么感兴趣？", "有没有不想活或伤害自己的想法？"],
+        confusions: "阴性症状像淡漠但主观痛苦较少；务必评估自杀风险。"
+      },
+      {
+        id: "G7",
+        name: "运动迟滞",
+        dimension: "一般精神病理",
+        focus: "动作、反应和言语速度变慢，启动困难。",
+        anchors: ["速度正常", "略慢", "轻度迟缓", "明显变慢", "多数活动迟缓", "严重迟缓需等待", "几乎不能启动活动"],
+        questions: ["观察走路、坐下、回答和转身速度。", "日常起床、洗漱、吃饭是否变慢？", "是否与药物、抑郁或神经问题有关？"],
+        confusions: "与N6少语、抑郁迟滞、药物性帕金森样表现区分。"
+      },
+      {
+        id: "G8",
+        name: "不合作",
+        dimension: "一般精神病理",
+        focus: "对访谈、治疗或照护的抵触、拒绝、消极配合或对抗。",
+        anchors: ["合作", "轻微保留", "偶尔拒答", "明显不配合", "多次拒绝或抵触", "强烈对抗影响评估", "完全拒绝或危险对抗"],
+        questions: ["观察是否愿意回答和遵守基本要求。", "不配合的原因是什么？", "是否因被害、敌意、认知障碍或不理解导致？"],
+        confusions: "区分敌对性、猜疑、意识障碍和合理拒绝；按实际合作程度评分。"
+      },
+      {
+        id: "G9",
+        name: "异常思维内容",
+        dimension: "一般精神病理",
+        focus: "除典型妄想外的奇特、怪异、过度牵连或非现实思维内容。",
+        anchors: ["无异常", "轻微奇特", "偶有怪异想法", "明显异常内容", "频繁影响判断", "强烈怪异且功能受损", "极端异常内容支配行为"],
+        questions: ["最近有没有别人难以理解的特殊想法？", "你是否觉得事情之间有特别关联？", "这些想法影响决定或生活吗？"],
+        confusions: "P1侧重明确妄想；G9覆盖更广的怪异思维内容。"
+      },
+      {
+        id: "G10",
+        name: "定向障碍",
+        dimension: "一般精神病理",
+        focus: "对时间、地点、人物和情境的辨认能力。",
+        anchors: ["完全定向", "偶有犹豫", "轻度时间错误", "明显时间/地点混淆", "多方面定向错误", "严重混乱需照护", "完全不定向"],
+        questions: ["今天几号？现在在哪里？", "我是谁？你为什么来这里？", "最近是否意识模糊、发热、用药或物质使用？"],
+        confusions: "定向障碍提示谵妄、神经认知障碍或躯体问题；不应简单归因精神病性症状。"
+      },
+      {
+        id: "G11",
+        name: "注意障碍",
+        dimension: "一般精神病理",
+        focus: "集中、维持和转移注意的能力，以及易分心程度。",
+        anchors: ["注意良好", "轻微分心", "需偶尔提醒", "明显难维持", "频繁跑神影响访谈", "很难完成简单任务", "几乎无法集中"],
+        questions: ["请倒背三个数字或连续减 7。", "访谈中是否容易被声音或想法带走？", "注意问题何时最明显？"],
+        confusions: "与概念紊乱、焦虑、幻听干扰、谵妄或药物镇静区分。"
+      },
+      {
+        id: "G12",
+        name: "判断和自知力缺乏",
+        dimension: "一般精神病理",
+        focus: "对疾病、症状、治疗需要和行为后果的认识与判断。",
+        anchors: ["自知力好", "部分保留", "承认问题但解释偏差", "明显缺乏认识", "否认疾病影响依从", "严重判断差导致风险", "完全无自知且行为危险"],
+        questions: ["你觉得自己为什么需要评估或治疗？", "这些经历可能和疾病有关吗？", "不治疗可能会怎样？"],
+        confusions: "与低教育、文化解释、合理不同意区分；看是否能整合证据和后果。"
+      },
+      {
+        id: "G13",
+        name: "意志障碍",
+        dimension: "一般精神病理",
+        focus: "目标形成、启动、坚持和完成活动的能力下降。",
+        anchors: ["主动性好", "略拖延", "轻度启动困难", "明显缺乏动力", "多数任务需督促", "严重无法坚持活动", "几乎完全无目标行为"],
+        questions: ["每天能主动安排什么事？", "做事是没兴趣、没力气，还是不知道怎么开始？", "需要别人提醒到什么程度？"],
+        confusions: "与抑郁、阴性症状、认知障碍、环境限制和药物镇静均可重叠。"
+      },
+      {
+        id: "G14",
+        name: "冲动控制障碍",
+        dimension: "一般精神病理",
+        focus: "冲动行为、延迟满足困难、攻击、冒险或无法抑制欲望。",
+        anchors: ["控制良好", "偶尔冲动", "轻度失控但后果小", "明显冲动有后果", "反复冲动需干预", "严重失控伴高风险", "极端冲动立即危险"],
+        questions: ["最近有没有一时冲动做后悔的事？", "发火或想做事时能停下来吗？", "是否有攻击、自伤、挥霍或危险行为？"],
+        confusions: "与敌对性、兴奋、物质使用、人格特征和躁狂状态区分。"
+      },
+      {
+        id: "G15",
+        name: "先占观念",
+        dimension: "一般精神病理",
+        focus: "被某些想法、担忧或体验持续占据，难以转移注意。",
+        anchors: ["无明显占用", "偶尔反复想", "轻度占用可转移", "明显反复占用", "占用大量时间", "几乎整天被占据", "完全无法摆脱并支配行为"],
+        questions: ["最近脑子里最放不下什么？", "每天占多少时间？", "别人打断时能不能转移？"],
+        confusions: "与强迫观念、妄想、焦虑担忧和创伤回忆区分；按占用程度评分。"
+      },
+      {
+        id: "G16",
+        name: "主动社交回避",
+        dimension: "一般精神病理",
+        focus: "主动避开他人或社交场合，常与害怕、猜疑、羞耻或敌意有关。",
+        anchors: ["不回避", "轻微减少", "偶尔主动回避", "明显避开社交", "多数场合回避", "几乎完全避免接触", "完全隔绝或拒绝接触"],
+        questions: ["你是否故意避开别人？为什么？", "是害怕、觉得别人针对你，还是不想交往？", "回避影响治疗、家庭或工作吗？"],
+        confusions: "N4是被动/淡漠退缩；G16强调主动回避及背后动机。"
+      },
+      {
+        id: "S1",
+        name: "愤怒",
+        dimension: "补充条目",
+        focus: "主观愤怒、怨恨、易激惹和怒气表达的强度，重点看是否外显、是否可平复。",
+        anchors: ["无明显愤怒", "轻微烦躁", "容易生气但可控制", "明显愤怒，谈话受影响", "频繁发怒或责怪他人", "强烈怒气，需反复降温", "怒气失控或迫切风险"],
+        questions: ["最近有没有经常觉得气、恨或憋不住火？", "发怒时能不能停下来？通常持续多久？", "有没有因此吵架、威胁、摔东西或差点动手？"],
+        confusions: "S1看情绪体验和怒气强度；P7更看敌对、威胁或攻击表达；G14更看冲动控制。"
+      },
+      {
+        id: "S2",
+        name: "延迟满足困难",
+        dimension: "补充条目",
+        focus: "想要某事时能否等待、协商或遵守限制，是否因立刻满足需求而冲突或冒险。",
+        anchors: ["能等待", "偶尔急躁", "等待困难但可劝导", "明显急迫，反复要求", "常因不能等待而冲突", "很难接受限制，需管理", "完全不能等待，立即风险"],
+        questions: ["想要东西或想做事时，能等一等吗？", "别人说现在不行时，你通常怎么反应？", "有没有因等不了而冲出去、抢东西、吵闹或动手？"],
+        confusions: "与G14冲动控制重叠，但S2更聚焦“不能等”和要求立刻满足；也需区分现实需求未被满足。"
+      },
+      {
+        id: "S3",
+        name: "情感不稳",
+        dimension: "补充条目",
+        focus: "情绪是否快速、大幅、难预测地变化，以及这种波动是否影响互动和行为安全。",
+        anchors: ["情绪稳定", "轻微波动", "偶有明显起伏", "情绪变化影响访谈", "频繁大幅波动", "难预测且需持续安抚", "剧烈波动伴危险行为"],
+        questions: ["最近情绪会不会很快从平静变成哭、怒或兴奋？", "这种变化通常由什么触发？多久能平复？", "情绪一变时，有没有伤人、自伤、冲出去或失控行为？"],
+        confusions: "S3看情绪波动速度和幅度；G2/G6看焦虑或抑郁强度；P4看兴奋和活动增多。"
+      }
+    ];
+
+    let currentIndex = 0;
+
+    const progress = document.getElementById("progress");
+    const itemTitle = document.getElementById("itemTitle");
+    const dimension = document.getElementById("dimension");
+    const focus = document.getElementById("focus");
+    const card = document.querySelector(".card");
+    const questions = document.getElementById("questions");
+    const anchors = document.getElementById("anchors");
+    const confusions = document.getElementById("confusions");
+    const swipeLeft = document.getElementById("swipeLeft");
+    const swipeRight = document.getElementById("swipeRight");
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+
+    function renderCard() {
+      const item = items[currentIndex];
+      const label = `${item.id} ${item.name}`;
+      const guideType = getGuideType(item);
+      const guideSet = domainLevelGuides[guideType] || levelGuides;
+      const exampleSet = domainExamples[guideType] || domainExamples.default;
+
+      document.title = `${label} - PANSS 评分锚点速查卡`;
+      progress.textContent = label;
+      itemTitle.textContent = label;
+      dimension.textContent = item.dimension;
+      focus.textContent = item.focus;
+      confusions.textContent = item.confusions;
+
+      questions.innerHTML = "";
+      const questionLabels = ["先开放", "再定级", "看影响/风险"];
+      item.questions.forEach((question, index) => {
+        const li = document.createElement("li");
+        const label = document.createElement("span");
+        label.className = "q-label";
+        label.textContent = `${questionLabels[index] || "补充"}：`;
+        li.append(label, document.createTextNode(question));
+        questions.appendChild(li);
+      });
+
+      anchors.innerHTML = "";
+      item.anchors.forEach((text, index) => {
+        const li = document.createElement("li");
+        const score = document.createElement("span");
+        const panel = document.createElement("div");
+        const track = document.createElement("div");
+        const fill = document.createElement("div");
+        const anchorText = document.createElement("span");
+        const anchorMain = document.createElement("span");
+        const anchorGuide = document.createElement("span");
+        const anchorExample = document.createElement("span");
+        score.className = "score";
+        panel.className = "bar-panel";
+        track.className = "bar-track";
+        fill.className = "bar-fill";
+        anchorText.className = "anchor-text";
+        anchorMain.className = "anchor-main";
+        anchorGuide.className = "anchor-guide";
+        anchorExample.className = "anchor-example";
+        score.textContent = `${index + 1} ${levelNames[index]}`;
+        fill.style.width = `${((index + 1) / 7) * 100}%`;
+        anchorMain.textContent = text;
+        anchorGuide.textContent = guideSet[index];
+        anchorExample.textContent = exampleSet[index];
+        anchorText.append(anchorMain, anchorGuide, anchorExample);
+        track.append(fill, anchorText);
+        panel.appendChild(track);
+        li.append(score, panel);
+        anchors.appendChild(li);
+      });
+    }
+
+    function go(delta) {
+      const nextIndex = Math.min(items.length - 1, Math.max(0, currentIndex + delta));
+      if (nextIndex !== currentIndex) {
+        currentIndex = nextIndex;
+        card.classList.add("is-changing");
+        setTimeout(() => {
+          renderCard();
+          card.classList.remove("is-changing");
+        }, 110);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function flashEdge(delta) {
+      const edge = delta < 0 ? swipeLeft : swipeRight;
+      edge.classList.add("show");
+      window.setTimeout(() => edge.classList.remove("show"), 180);
+    }
+
+    card.addEventListener("touchstart", (event) => {
+      const touch = event.changedTouches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      touchStartTime = Date.now();
+    }, { passive: true });
+
+    card.addEventListener("touchend", (event) => {
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - touchStartX;
+      const dy = touch.clientY - touchStartY;
+      const elapsed = Date.now() - touchStartTime;
+      if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.4 && elapsed < 900) {
+        const delta = dx < 0 ? 1 : -1;
+        flashEdge(delta);
+        go(delta);
+      }
+    }, { passive: true });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        go(-1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        go(1);
+      }
+    });
+
+    renderCard();
+  </script>
+</body>
+</html>
