@@ -7,17 +7,17 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #f4f3ef;
+      --bg: #fbf7fb;
       --panel: rgba(255, 255, 255, 0.9);
       --ink: #1d1d1f;
       --muted: #6e6e73;
       --line: rgba(60, 60, 67, 0.16);
-      --brand: #315f72;
-      --brand-dark: #244a59;
-      --soft: rgba(49, 95, 114, 0.12);
+      --brand: #8067b7;
+      --brand-dark: #59417e;
+      --soft: rgba(128, 103, 183, 0.14);
       --warn: #775b16;
       --warn-bg: #fff4d7;
-      --shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+      --shadow: 0 18px 42px rgba(80, 64, 110, 0.13);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
         "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     }
@@ -34,9 +34,9 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at 18% 0%, rgba(133, 156, 146, 0.22), transparent 35%),
-        radial-gradient(circle at 82% 10%, rgba(82, 103, 126, 0.14), transparent 30%),
-        linear-gradient(180deg, #fbfaf7 0%, var(--bg) 45%, #ebe8e1 100%);
+        radial-gradient(circle at 15% 0%, rgba(181, 226, 210, 0.48), transparent 34%),
+        radial-gradient(circle at 88% 4%, rgba(244, 194, 213, 0.42), transparent 30%),
+        linear-gradient(180deg, #fffcff 0%, var(--bg) 48%, #f3eef8 100%);
       color: var(--ink);
       font-size: 20px;
       line-height: 1.5;
@@ -48,44 +48,63 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding: max(16px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right))
-        max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+      padding: max(10px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right))
+        max(12px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
     }
 
     header {
-      display: none;
+      width: min(1120px, 100%);
+      margin: 0 auto 10px;
+      position: sticky;
+      top: max(8px, env(safe-area-inset-top));
+      z-index: 10;
     }
 
     .topline {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 14px 16px;
+      gap: 10px;
+      padding: 8px;
       border: 1px solid rgba(255, 255, 255, 0.72);
-      border-radius: 24px;
+      border-radius: 18px;
       background: rgba(255, 255, 255, 0.76);
-      box-shadow: 0 10px 30px rgba(52, 64, 66, 0.1);
+      box-shadow: 0 8px 24px rgba(80, 64, 110, 0.1);
       backdrop-filter: blur(22px) saturate(1.6);
       -webkit-backdrop-filter: blur(22px) saturate(1.6);
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(28px, 4vw, 42px);
+      font-size: clamp(18px, 2.3vw, 24px);
       line-height: 1.1;
       letter-spacing: 0;
     }
 
-    .progress-pill {
-      flex: 0 0 auto;
-      padding: 9px 14px;
+    .scale-tabs {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .scale-tab {
+      min-height: 42px;
+      border: 0;
       border-radius: 999px;
-      background: var(--soft);
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--muted);
+      font: inherit;
+      font-size: clamp(15px, 2vw, 19px);
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: inset 0 0 0 1px rgba(60, 60, 67, 0.08);
+    }
+
+    .scale-tab.active {
+      background: linear-gradient(135deg, #d8f3e8, #eee4ff 58%, #ffe1ec);
       color: var(--brand-dark);
-      font-size: clamp(18px, 2.4vw, 24px);
-      font-weight: 700;
-      white-space: nowrap;
+      box-shadow: 0 6px 18px rgba(128, 103, 183, 0.16);
     }
 
     .notice {
@@ -99,7 +118,7 @@
     }
 
     main {
-      width: min(980px, 100%);
+      width: min(1120px, 100%);
       margin: 0 auto;
       flex: 1;
       display: flex;
@@ -111,7 +130,7 @@
       flex: 1;
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 28px;
+      border-radius: 24px;
       box-shadow: var(--shadow);
       overflow: hidden;
       backdrop-filter: blur(18px);
@@ -126,7 +145,7 @@
     }
 
     .card-head {
-      padding: clamp(18px, 2.6vw, 28px);
+      padding: clamp(13px, 2vw, 22px);
       border-bottom: 1px solid var(--line);
       display: grid;
       gap: 8px;
@@ -142,7 +161,7 @@
 
     .item-title {
       margin: 0;
-      font-size: clamp(32px, 4.4vw, 50px);
+      font-size: clamp(27px, 3.6vw, 42px);
       line-height: 1.05;
       letter-spacing: 0;
     }
@@ -151,11 +170,11 @@
       display: inline-flex;
       width: fit-content;
       align-items: center;
-      padding: 8px 12px;
+      padding: 6px 10px;
       border-radius: 999px;
       background: var(--soft);
       color: var(--brand-dark);
-      font-size: clamp(17px, 2.2vw, 22px);
+      font-size: clamp(15px, 1.9vw, 19px);
       font-weight: 800;
     }
 
@@ -163,25 +182,25 @@
       margin: 0;
       max-width: 58em;
       color: var(--muted);
-      font-size: clamp(19px, 2.45vw, 25px);
-      line-height: 1.42;
+      font-size: clamp(17px, 2.1vw, 22px);
+      line-height: 1.32;
     }
 
     .card-body {
-      padding: clamp(20px, 3.2vw, 32px);
+      padding: clamp(14px, 2.2vw, 24px);
       display: grid;
-      gap: 22px;
+      gap: 14px;
     }
 
     section {
       display: grid;
-      gap: 9px;
+      gap: 7px;
     }
 
     h2 {
       margin: 0;
       color: var(--brand-dark);
-      font-size: clamp(21px, 2.8vw, 28px);
+      font-size: clamp(18px, 2.35vw, 24px);
       line-height: 1.2;
       letter-spacing: 0;
     }
@@ -189,7 +208,7 @@
     p {
       margin: 0;
       color: var(--ink);
-      font-size: clamp(20px, 2.7vw, 27px);
+      font-size: clamp(17px, 2.2vw, 22px);
     }
 
     .scale-section {
@@ -204,7 +223,7 @@
       padding: 0;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 9px;
+      gap: 7px;
       list-style: none;
     }
 
@@ -212,10 +231,10 @@
       min-height: 0;
       padding: 0;
       border: 1px solid var(--line);
-      border-radius: 18px;
+      border-radius: 16px;
       background: rgba(255, 255, 255, 0.78);
       display: grid;
-      grid-template-columns: 92px 1fr;
+      grid-template-columns: 84px 1fr;
       align-items: center;
       gap: 0;
       overflow: hidden;
@@ -223,10 +242,10 @@
 
     .score {
       height: 100%;
-      min-height: 92px;
+      min-height: 70px;
       padding: 12px 10px;
       color: var(--brand-dark);
-      font-size: clamp(19px, 2.8vw, 26px);
+      font-size: clamp(16px, 2.25vw, 22px);
       font-weight: 900;
       line-height: 1;
       display: grid;
@@ -240,7 +259,7 @@
     }
 
     .bar-track {
-      min-height: 92px;
+      min-height: 70px;
       position: relative;
       display: flex;
       align-items: center;
@@ -252,7 +271,7 @@
       position: absolute;
       inset: 0 auto 0 0;
       height: 100%;
-      background: linear-gradient(90deg, #d8e0d7 0%, #9cb7ad 28%, #63889a 58%, #9a756e 82%, #8b3f46 100%);
+      background: linear-gradient(90deg, #d8f3e8 0%, #bbe3ef 30%, #d8c9ff 58%, #ffd6e4 82%, #ffb5c7 100%);
       opacity: 0.74;
     }
 
@@ -267,20 +286,20 @@
     }
 
     .anchor-main {
-      font-size: clamp(18px, 2.4vw, 24px);
+      font-size: clamp(16px, 2.05vw, 21px);
       font-weight: 800;
       line-height: 1.25;
     }
 
     .anchor-guide {
       color: rgba(29, 29, 31, 0.76);
-      font-size: clamp(15px, 2vw, 20px);
-      line-height: 1.28;
+      font-size: clamp(13px, 1.75vw, 17px);
+      line-height: 1.22;
     }
 
     .anchor-example {
-      color: rgba(36, 74, 89, 0.9);
-      font-size: clamp(14px, 1.8vw, 18px);
+      color: rgba(89, 65, 126, 0.88);
+      font-size: clamp(12px, 1.55vw, 16px);
       line-height: 1.24;
     }
 
@@ -288,7 +307,7 @@
       margin: 0;
       padding-left: 1.15em;
       color: var(--ink);
-      font-size: clamp(20px, 2.7vw, 27px);
+      font-size: clamp(17px, 2.15vw, 22px);
     }
 
     .quick-list li + li {
@@ -313,12 +332,12 @@
 
     .swipe-edge.left {
       left: 0;
-      background: linear-gradient(90deg, rgba(49, 95, 114, 0.22), transparent);
+      background: linear-gradient(90deg, rgba(128, 103, 183, 0.22), transparent);
     }
 
     .swipe-edge.right {
       right: 0;
-      background: linear-gradient(270deg, rgba(49, 95, 114, 0.22), transparent);
+      background: linear-gradient(270deg, rgba(128, 103, 183, 0.22), transparent);
     }
 
     .swipe-edge.show {
@@ -335,17 +354,15 @@
       }
 
       .topline {
-        align-items: flex-start;
         flex-direction: column;
       }
 
-      .progress-pill {
+      .scale-tabs {
         width: 100%;
-        text-align: center;
       }
 
       .anchors li {
-        grid-template-columns: 82px 1fr;
+        grid-template-columns: 72px 1fr;
       }
     }
 
@@ -382,8 +399,8 @@
   <div class="app">
     <header>
       <div class="topline">
-        <h1>PANSS 评分锚点速查卡</h1>
-        <div class="progress-pill" id="progress">P1 妄想</div>
+        <h1>临床速查卡</h1>
+        <div class="scale-tabs" id="scaleTabs" aria-label="量表切换"></div>
       </div>
     </header>
 
@@ -880,9 +897,263 @@
       }
     ];
 
-    let currentIndex = 0;
+    const brmsItems = [
+      {
+        id: "BRMS1",
+        name: "情绪高涨",
+        dimension: "BRMS 躁狂量表",
+        focus: "观察欣快、乐观、自我感觉过好，以及情绪是否与处境不相称。",
+        levelNames: ["0 无", "1 可疑", "2 轻", "3 中", "4 重"],
+        anchors: ["情绪自然", "略显开心或兴奋", "明显高兴但可交流", "持续高涨，影响判断", "兴奋夸张，难以纠正"],
+        guides: ["未见异常高涨。", "比平时略开心，临床意义不确定。", "高涨明确，但仍能听劝和回到主题。", "高涨持续存在，影响判断或社交边界。", "情绪明显失控，现实反馈难以纠正。"],
+        examples: ["例：谈及近况时情绪与内容匹配。", "例：比平时更爱笑，但家属不确定是否异常。", "例：自称状态特别好，计划增多但尚可讨论。", "例：明显过度乐观，轻视风险或拒绝休息。", "例：持续亢奋、夸张庆祝，无法接受任何提醒。"],
+        questions: ["最近心情是否异常好或特别兴奋？", "别人是否觉得你和平时不一样？", "这种状态有没有带来冲动决定或冲突？"],
+        confusions: "与正常开心、焦虑性激动、药物或物质影响区分；看是否异常、持续且影响功能。"
+      },
+      {
+        id: "BRMS2",
+        name: "活动/精力增多",
+        dimension: "BRMS 躁狂量表",
+        focus: "看精力、活动量、坐立不安、计划增多和停不下来的程度。",
+        levelNames: ["0 无", "1 可疑", "2 轻", "3 中", "4 重"],
+        anchors: ["活动正常", "略忙或坐不住", "明显比平时活跃", "活动过多，难以休息", "持续奔忙或严重激越"],
+        guides: ["活动量接近基线。", "轻微增加，功能未受影响。", "精力和计划明确增加。", "活动过多，休息和安排受影响。", "几乎停不下来，需要管理或保护。"],
+        examples: ["例：作息和日常活动如常。", "例：比平时忙一点，偶尔坐不住。", "例：同时启动多个计划，睡少仍说不累。", "例：整天奔忙、打电话、整理东西，难停下。", "例：来回走动、冲出门或无法在访谈中坐定。"],
+        questions: ["最近精力是不是明显比平时多？", "一天做很多事但停不下来吗？", "睡少后仍不累吗？"],
+        confusions: "与焦虑、静坐不能、咖啡因/兴奋剂、P4 兴奋重叠；结合主观精力和睡眠。"
+      },
+      {
+        id: "BRMS3",
+        name: "性兴趣增多",
+        dimension: "BRMS 躁狂量表",
+        focus: "性想法、性言语、调情、冲动性性行为是否较基线增加。",
+        levelNames: ["0 无", "1 可疑", "2 轻", "3 中", "4 重"],
+        anchors: ["无变化", "略增加", "言谈或想法增多", "明显影响行为边界", "危险或失控性行为"],
+        guides: ["相对既往无变化。", "轻微增加，证据不充分。", "性想法或言谈增多，但尚可控制。", "边界感下降，已影响关系或行为。", "冲动性或危险性性行为明显。"],
+        examples: ["例：性兴趣和行为维持平时水平。", "例：偶尔提到欲望增加，但无行为变化。", "例：频繁调情或谈性话题，提醒后能收敛。", "例：不合场景示好、联系多人或越界接触。", "例：无保护性行为、危险约会或造成严重后果。"],
+        questions: ["最近性兴趣是否明显变强？", "有没有比平时更主动、冒险或不顾后果？", "是否因此产生关系、法律或安全问题？"],
+        confusions: "注意隐私和文化差异；看相对既往变化及风险，而不是价值判断。"
+      },
+      {
+        id: "BRMS4",
+        name: "睡眠减少",
+        dimension: "BRMS 躁狂量表",
+        focus: "睡眠需求是否减少，少睡后是否仍精力充沛。",
+        levelNames: ["0 无", "1 可疑", "2 轻", "3 中", "4 重"],
+        anchors: ["睡眠如常", "略少", "少睡但白天能撑", "明显少睡仍兴奋", "几乎不睡且不觉疲惫"],
+        guides: ["睡眠需求和质量接近基线。", "少睡一点，但可由环境解释。", "睡眠减少明确，白天仍较兴奋。", "连续少睡且不觉疲劳。", "几乎不睡，仍活动旺盛或失控。"],
+        examples: ["例：仍按平时睡 7 小时左右。", "例：近两晚少睡 1 小时，原因不清。", "例：睡 4-5 小时仍说精力很好。", "例：连续数天睡 2-3 小时仍忙碌兴奋。", "例：整夜不睡、到处活动，还否认疲劳。"],
+        questions: ["最近每晚睡几个小时？", "少睡后是疲惫还是仍很有精神？", "连续几天这样？"],
+        confusions: "失眠焦虑通常少睡后疲惫；躁狂更常见睡眠需要减少。"
+      },
+      {
+        id: "BRMS5",
+        name: "易激惹",
+        dimension: "BRMS 躁狂量表",
+        focus: "不耐烦、易怒、争执和被阻止时的反应。",
+        levelNames: ["0 无", "1 可疑", "2 轻", "3 中", "4 重"],
+        anchors: ["平稳", "略不耐烦", "容易生气可安抚", "频繁争执或发火", "暴怒、威胁或攻击风险"],
+        guides: ["无明显易怒。", "轻微不耐烦，能自控。", "易怒明确，提醒后能平复。", "经常发火或争执，影响关系。", "怒气失控，伴威胁、破坏或攻击风险。"],
+        examples: ["例：访谈中合作，语气平稳。", "例：被追问时皱眉、叹气但继续配合。", "例：家属说最近容易吼人，但可劝住。", "例：多次争吵、摔门、拒绝沟通。", "例：威胁他人、摔物或需要现场安全处置。"],
+        questions: ["别人提醒或阻止你时会怎样？", "最近吵架、摔东西或威胁过人吗？", "发火后多久能平复？"],
+        confusions: "与 PANSS 敌对性、冲动控制、物质使用相关易怒区分。"
+      },
+      {
+        id: "BRMS6",
+        name: "言语增多",
+        dimension: "BRMS 躁狂量表",
+        focus: "话量、语速、打断、难以插话和言语压力。",
+        levelNames: ["0 无", "1 可疑", "2 轻", "3 中", "4 重"],
+        anchors: ["正常", "略话多", "明显话多但可打断", "语速快，难插话", "滔滔不绝，几乎无法打断"],
+        guides: ["语量和语速接近基线。", "略多，但不影响交流。", "话多明确，仍可被打断。", "语速快、压力感强，访谈者难插入。", "持续输出，几乎不能停止或转换。"],
+        examples: ["例：问什么答什么，节奏正常。", "例：回答稍长，但能听问题。", "例：主动补充很多细节，提醒后能停。", "例：不断抢话，需多次打断才能追问。", "例：几乎不停说，无法完成结构化访谈。"],
+        questions: ["别人是否说你最近话特别多？", "说话会不会停不下来？", "别人能不能插上话？"],
+        confusions: "与焦虑性多语、人格风格、PANSS 概念紊乱区分；这里重在量和压力。"
+      },
+      {
+        id: "BRMS7",
+        name: "思维/语言紊乱",
+        dimension: "BRMS 躁狂量表",
+        focus: "联想加快、跳跃、押韵、离题和思路难跟随。",
+        levelNames: ["0 无", "1 可疑", "2 轻", "3 中", "4 重"],
+        anchors: ["连贯", "偶尔跳跃", "轻度联想奔逸", "明显跑题需拉回", "严重松散或难理解"],
+        guides: ["思路连贯，可按顺序表达。", "偶尔跳跃，不影响理解。", "联想加快，但核心线索仍能跟上。", "明显离题，需要反复拉回。", "思维严重散乱，信息难以取得。"],
+        examples: ["例：能说明事件前因后果。", "例：偶尔从睡眠跳到工作，但能回到问题。", "例：话题快速转换，仍有可追踪逻辑。", "例：从计划、金钱、使命反复跳转，需中断澄清。", "例：押韵、音联、跳跃明显，听者难理解。"],
+        questions: ["请按顺序讲一下最近发生的事。", "刚才这个想法和前一句有什么关系？", "别人是否听不懂你在说什么？"],
+        confusions: "与精神分裂症性思维紊乱重叠；结合情绪高涨和活动增多判断。"
+      },
+      {
+        id: "BRMS8",
+        name: "内容夸大",
+        dimension: "BRMS 躁狂量表",
+        focus: "自信、能力、财富、身份、计划是否明显夸大。",
+        levelNames: ["0 无", "1 可疑", "2 轻", "3 中", "4 重"],
+        anchors: ["自评现实", "略自信", "夸大但可修正", "明显不现实并影响计划", "妄想性夸大或高风险行为"],
+        guides: ["自我评价有现实基础。", "略显自信，尚不异常。", "夸大明确，但能接受现实反馈。", "不现实计划影响决定。", "夸大达到妄想性或引发高风险。"],
+        examples: ["例：评价能力与实际经历相符。", "例：说自己状态好、能做更多，但计划可行。", "例：认为可快速成功，解释后能调整。", "例：准备大额投资、辞职创业，轻视风险。", "例：坚称有特殊使命/权力，并据此冒险行动。"],
+        questions: ["最近是否觉得自己特别有能力或使命？", "这些计划现实可行吗？", "有没有因此花钱、辞职、投资或冒险？"],
+        confusions: "与 PANSS P5 夸大重叠；BRMS 中结合躁狂整体状态。"
+      },
+      {
+        id: "BRMS9",
+        name: "破坏/攻击行为",
+        dimension: "BRMS 躁狂量表",
+        focus: "冲突、威胁、摔物、攻击、需要约束或安全处置的程度。",
+        levelNames: ["0 无", "1 可疑", "2 轻", "3 中", "4 重"],
+        anchors: ["无", "口头不满", "争执或轻微破坏", "威胁/明显破坏需干预", "攻击或立即危险"],
+        guides: ["无破坏、威胁或攻击。", "只有言语不满，无行为升级。", "有争执或轻微破坏，能被制止。", "威胁或破坏明显，需要外界干预。", "现实攻击或即刻危险。"],
+        examples: ["例：否认近期冲突，家属也未观察到。", "例：抱怨家人管太多，但无威胁。", "例：吵架、摔小物件，劝说后停下。", "例：扬言打人、砸门，需要多人拦阻。", "例：已动手攻击、持物威胁或必须急诊处置。"],
+        questions: ["最近有没有摔东西、威胁或动手？", "现场是否需要别人拦你？", "有没有报警、急诊或保护措施？"],
+        confusions: "先处理安全；与物质使用、精神病性被害、防御性攻击区分。"
+      },
+      {
+        id: "BRMS10",
+        name: "外表/行为怪异",
+        dimension: "BRMS 躁狂量表",
+        focus: "衣着、妆容、社交边界、戏剧化或不合场景行为。",
+        levelNames: ["0 无", "1 可疑", "2 轻", "3 中", "4 重"],
+        anchors: ["合适", "略夸张", "明显打扮或行为变化", "不合场景，影响互动", "严重失范或危险暴露"],
+        guides: ["外表和行为符合场景。", "略显夸张，但仍可接受。", "相对既往变化明确。", "不合场景，影响社交或访谈。", "严重失范，带来安全或法律风险。"],
+        examples: ["例：衣着整洁，行为自然。", "例：颜色或配饰更醒目，但能解释。", "例：突然浓妆、奇装或戏剧化动作。", "例：在医院大声表演、越界搭讪。", "例：暴露身体、冲入危险场所或严重扰乱秩序。"],
+        questions: ["最近穿着打扮是否和平时很不一样？", "别人是否提醒过你不合适？", "这些行为带来麻烦了吗？"],
+        confusions: "尊重个人风格；看相对基线、场景不合适和后果。"
+      },
+      {
+        id: "BRMS11",
+        name: "自知力",
+        dimension: "BRMS 躁狂量表",
+        focus: "是否认识到当前状态异常，以及是否愿意接受治疗或限制。",
+        levelNames: ["0 好", "1 较好", "2 部分", "3 差", "4 无"],
+        anchors: ["理解并配合", "承认部分变化", "知道有问题但低估", "否认异常，依从差", "完全无自知且高风险"],
+        guides: ["能认识状态异常并配合处理。", "承认变化，但解释偏乐观。", "部分知道有问题，低估严重性。", "基本否认异常，拒绝建议。", "完全无自知，行为风险高。"],
+        examples: ["例：主动说需要休息/治疗。", "例：承认睡少话多，但觉得问题不大。", "例：知道家人担心，却坚持还能控制。", "例：拒绝治疗，认为别人都在阻碍自己。", "例：坚称完全正常，继续危险计划或攻击。"],
+        questions: ["你觉得自己现在和平时有什么不同？", "这些变化需要治疗或休息吗？", "如果家属担心你，你怎么看？"],
+        confusions: "区分合理不同意和病理性缺乏自知；结合风险与治疗依从。"
+      }
+    ];
 
-    const progress = document.getElementById("progress");
+    const gafItems = [
+      {
+        id: "GAF",
+        name: "GAF 大体功能快速定位",
+        dimension: "大体功能评定",
+        focus: "先看心理症状、社会/职业/学习功能和安全风险；在“症状严重度”和“功能受损”中取更低、更能代表当前状态的范围。",
+        levelNames: ["91-100", "81-90", "71-80", "61-70", "51-60", "41-50", "31-40", "21-30", "11-20", "1-10"],
+        anchors: [
+          "功能优良，生活各方面适应好",
+          "症状极少，功能接近良好",
+          "短暂轻微症状或轻微压力反应",
+          "轻度症状或轻度功能困难",
+          "中等症状或中等功能困难",
+          "严重症状或严重功能受损",
+          "现实检验/交流受损，或多领域明显受损",
+          "行为受妄想/幻觉明显影响，或几乎不能功能",
+          "有伤害自己/他人风险，或个人卫生严重受损",
+          "持续严重危险，或无法维持基本安全"
+        ],
+        guides: [
+          "没有症状或功能问题，适应非常好。",
+          "只有轻微压力反应，功能总体良好。",
+          "短暂症状或轻微功能下降，能自行恢复。",
+          "轻度症状，仍能维持主要角色功能。",
+          "中等症状或中等社交/职业困难。",
+          "严重症状，或工作、人际、学习明显受损。",
+          "现实检验/交流受损，或多领域功能缺陷。",
+          "行为受严重症状影响，基本角色功能接近中断。",
+          "存在明显安全风险或自理严重受损。",
+          "持续危及自己/他人，或完全无法维持基本安全。"
+        ],
+        examples: [
+          "例：工作学习、人际和自理都表现优良，有目标且效率高。",
+          "例：偶尔紧张或失眠，但仍能稳定工作、照顾家庭。",
+          "例：考试/冲突后短暂焦虑，几天内恢复，功能基本保留。",
+          "例：轻度抑郁或失眠，效率下降但仍能上班上学。",
+          "例：惊恐发作、明显抑郁或朋友很少，功能中度受限。",
+          "例：严重强迫/抑郁，不能稳定工作，关系冲突明显。",
+          "例：言语有时不合逻辑，或工作、家庭、判断多方面差。",
+          "例：受幻听妄想影响行动，几乎不出门或不能工作。",
+          "例：有自杀计划、攻击风险，或数日不洗漱不进食。",
+          "例：持续自/他伤危险，需严密看护或紧急处置。"
+        ],
+        questions: ["过去一段时间，工作/学习、人际、自理最低到什么水平？", "症状是否影响现实判断、沟通或安全？", "选择范围时：症状和功能哪个更差，就靠近哪个范围。"],
+        confusions: "GAF 是总体功能锚定，不等于诊断；急性安全风险会把评分拉低。"
+      }
+    ];
+
+    const capsItems = [
+      {
+        id: "CAPS-A",
+        name: "A 创伤事件",
+        dimension: "CAPS / DSM-IV PTSD",
+        focus: "先确认是否存在符合条件的创伤暴露，以及当时是否有强烈恐惧、无助或惊恐反应。",
+        levelNames: ["A1", "A2", "不满足", "满足"],
+        anchors: ["经历/目睹/面对死亡、重伤或身体完整性威胁", "当时出现强烈恐惧、无助或惊恐", "事件不符合创伤标准或反应不足", "A1 与 A2 均支持，继续评估 B/C/D"],
+        guides: ["确认事件性质，而不是只看主观难受。", "确认当时即时反应是否达到 DSM-IV A2。", "若事件或反应不足，不宜直接进入 PTSD 诊断。", "A 条件成立后，再看症状群数量和损害。"],
+        examples: ["例：遭遇严重车祸、性侵、暴力袭击，或目睹死亡。", "例：当时觉得会死、完全无助、僵住或极度惊恐。", "例：离婚、失业虽痛苦，但未涉及死亡/重伤威胁。", "例：创伤暴露明确，且当时有强烈恐惧或无助。"],
+        questions: ["最困扰你的创伤事件是哪一次？", "当时是否觉得会死、会重伤，或完全无助？", "现在谈到这件事时，哪部分最难受？"],
+        confusions: "DSM-IV 强调 A2 反应；不要把普通压力事件直接等同 PTSD 创伤事件。"
+      },
+      {
+        id: "CAPS-B",
+        name: "B 再体验",
+        dimension: "CAPS / DSM-IV PTSD",
+        focus: "评估侵入性回忆、噩梦、闪回、触发后的心理痛苦和生理反应；DSM-IV 需至少 1 项。",
+        levelNames: ["0 无", "1 轻", "2 阈下", "3 阈值", "4 重"],
+        anchors: ["没有侵入性再体验", "偶尔想起但可控制", "有症状但频率/强度不足", "达到临床阈值，明显痛苦", "频繁、强烈，像重新经历"],
+        guides: ["无侵入性、非自愿的创伤再体验。", "偶尔出现，可主动转移。", "有再体验线索，但频率或痛苦不足。", "再体验明确，造成明显痛苦或干扰。", "强烈、频繁，伴解离或明显生理反应。"],
+        examples: ["例：能回忆事件，但不会突然闯入脑中。", "例：看到新闻会想起，但几分钟能平复。", "例：偶有噩梦或画面，每月少量出现。", "例：每周多次侵入画面，回避触发物。", "例：闪回时像回到现场，出汗发抖、难以定位当下。"],
+        questions: ["是否会不由自主想起创伤画面？", "有没有相关噩梦或像回到现场的感觉？", "被触发时身体会不会心跳、出汗、发抖？"],
+        confusions: "普通回忆可主动停止；再体验常突然而侵入，并伴明显痛苦或生理唤起。"
+      },
+      {
+        id: "CAPS-C",
+        name: "C 回避/麻木",
+        dimension: "CAPS / DSM-IV PTSD",
+        focus: "评估回避想法、地点、人物，以及兴趣下降、疏离、情感麻木、未来受限感；DSM-IV 需至少 3 项。",
+        levelNames: ["0 无", "1 轻", "2 阈下", "3 阈值", "4 重"],
+        anchors: ["无明显回避或麻木", "轻微回避，功能影响小", "有数项但未达诊断数量/强度", "至少 3 项达到临床阈值", "广泛回避和麻木，生活明显缩窄"],
+        guides: ["不刻意回避，情感和兴趣基本保留。", "有轻微回避，但生活范围未明显缩小。", "出现回避/麻木，但数量或强度不足。", "至少 3 类症状明确且造成影响。", "回避广泛，亲密、兴趣和未来感明显受损。"],
+        examples: ["例：仍能经过相关地点，也能谈起事件。", "例：不太愿意聊，但必要时可以谈。", "例：避开新闻和某条路，同时兴趣略降。", "例：不谈、不去相关地点、疏离家人、情感变麻木。", "例：几乎所有活动围绕避开线索，生活半径明显缩小。"],
+        questions: ["你会刻意不想、不说或避开相关地方/人吗？", "兴趣、亲近感或情绪反应是否变少？", "有没有觉得未来变短或没有前途？"],
+        confusions: "回避可被误认为阴性症状或抑郁；要追问是否围绕创伤线索。"
+      },
+      {
+        id: "CAPS-D",
+        name: "D 高警觉",
+        dimension: "CAPS / DSM-IV PTSD",
+        focus: "评估睡眠、易怒、注意、过度警觉和惊跳反应；DSM-IV 需至少 2 项。",
+        levelNames: ["0 无", "1 轻", "2 阈下", "3 阈值", "4 重"],
+        anchors: ["无持续高警觉", "偶尔紧张或睡差", "有症状但不足诊断阈值", "至少 2 项达到临床阈值", "持续警觉，安全感和功能明显受损"],
+        guides: ["睡眠、警觉和惊跳接近创伤前。", "偶有紧张，但可由日常压力解释。", "有睡眠/易怒/警觉症状，但不足 2 项阈值。", "至少 2 项明确，影响睡眠、注意或关系。", "持续处于危险预期中，功能明显受损。"],
+        examples: ["例：能睡，走在路上不特别警戒。", "例：偶尔被声音吓一跳，但很快恢复。", "例：睡差和易怒都有一点，但不稳定。", "例：长期失眠、易怒、坐背靠墙、反复查门。", "例：无法在人群停留，夜间巡查，惊跳后很久不能平复。"],
+        questions: ["睡眠、脾气、注意力有没有创伤后变化？", "是否总在警戒、坐背靠墙、检查出口？", "突然声音会不会明显惊跳？"],
+        confusions: "与广泛焦虑、躁狂睡眠减少、物质影响区分；看是否创伤后出现并与威胁感相关。"
+      },
+      {
+        id: "CAPS-EF",
+        name: "E/F 时程与损害",
+        dimension: "CAPS / DSM-IV PTSD",
+        focus: "确认症状持续超过 1 个月，并造成临床显著痛苦或社会、职业等功能损害。",
+        levelNames: ["E", "F", "急性", "慢性/迟发"],
+        anchors: ["症状持续时间超过 1 个月", "造成明显痛苦或功能损害", "不足 3 个月可描述为急性", "超过 3 个月或迟发起病需注明"],
+        guides: ["DSM-IV PTSD 需症状持续超过 1 个月。", "不仅有症状，还要有临床显著痛苦或功能损害。", "持续 1-3 个月可标注急性。", "超过 3 个月或创伤后延迟出现需注明。"],
+        examples: ["例：创伤后 6 周仍有再体验、回避和高警觉。", "例：因症状不能工作、回避伴侣、睡眠严重受损。", "例：创伤后第 2 个月症状明显但病程较短。", "例：半年后仍明显受影响，或数月后才全面发作。"],
+        questions: ["这些症状持续多久了？", "对工作、学习、亲密关系或自理影响多大？", "创伤后多久开始明显出现？"],
+        confusions: "若未满 1 个月，考虑急性应激相关问题；诊断还需综合临床判断。"
+      }
+    ];
+
+    const scales = {
+      panss: { label: "PANSS", title: "PANSS 评分锚点", items },
+      brms: { label: "BRMS", title: "BRMS 躁狂量表", items: brmsItems },
+      gaf: { label: "GAF", title: "GAF 功能评定", items: gafItems },
+      caps: { label: "CAPS", title: "CAPS/PTSD 诊断", items: capsItems }
+    };
+
+    let currentIndex = 0;
+    let currentScaleKey = "panss";
+
+    const scaleTabs = document.getElementById("scaleTabs");
     const itemTitle = document.getElementById("itemTitle");
     const dimension = document.getElementById("dimension");
     const focus = document.getElementById("focus");
@@ -896,15 +1167,39 @@
     let touchStartY = 0;
     let touchStartTime = 0;
 
+    function getCurrentItems() {
+      return scales[currentScaleKey].items;
+    }
+
+    function renderScaleTabs() {
+      scaleTabs.innerHTML = "";
+      Object.entries(scales).forEach(([key, scale]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `scale-tab${key === currentScaleKey ? " active" : ""}`;
+        button.textContent = scale.label;
+        button.addEventListener("click", () => {
+          currentScaleKey = key;
+          currentIndex = 0;
+          renderScaleTabs();
+          renderCard();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        scaleTabs.appendChild(button);
+      });
+    }
+
     function renderCard() {
-      const item = items[currentIndex];
+      const currentItems = getCurrentItems();
+      const item = currentItems[currentIndex];
       const label = `${item.id} ${item.name}`;
       const guideType = getGuideType(item);
       const guideSet = domainLevelGuides[guideType] || levelGuides;
       const exampleSet = domainExamples[guideType] || domainExamples.default;
+      const scoreLabels = item.levelNames || levelNames;
+      const scaleTitle = scales[currentScaleKey].title;
 
-      document.title = `${label} - PANSS 评分锚点速查卡`;
-      progress.textContent = label;
+      document.title = `${label} - ${scaleTitle}`;
       itemTitle.textContent = label;
       dimension.textContent = item.dimension;
       focus.textContent = item.focus;
@@ -940,11 +1235,11 @@
         anchorMain.className = "anchor-main";
         anchorGuide.className = "anchor-guide";
         anchorExample.className = "anchor-example";
-        score.textContent = `${index + 1} ${levelNames[index]}`;
-        fill.style.width = `${((index + 1) / 7) * 100}%`;
+        score.textContent = scoreLabels[index] || `${index + 1}`;
+        fill.style.width = `${((index + 1) / item.anchors.length) * 100}%`;
         anchorMain.textContent = text;
-        anchorGuide.textContent = guideSet[index];
-        anchorExample.textContent = exampleSet[index];
+        anchorGuide.textContent = item.guides?.[index] || guideSet[index] || "按临床严重度、频率、功能影响和安全风险综合锚定。";
+        anchorExample.textContent = item.examples?.[index] || exampleSet[index] || "";
         anchorText.append(anchorMain, anchorGuide, anchorExample);
         track.append(fill, anchorText);
         panel.appendChild(track);
@@ -954,7 +1249,8 @@
     }
 
     function go(delta) {
-      const nextIndex = Math.min(items.length - 1, Math.max(0, currentIndex + delta));
+      const currentItems = getCurrentItems();
+      const nextIndex = Math.min(currentItems.length - 1, Math.max(0, currentIndex + delta));
       if (nextIndex !== currentIndex) {
         currentIndex = nextIndex;
         card.classList.add("is-changing");
@@ -1002,6 +1298,7 @@
       }
     });
 
+    renderScaleTabs();
     renderCard();
   </script>
 </body>
